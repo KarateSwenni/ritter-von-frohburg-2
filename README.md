@@ -16,6 +16,8 @@ Angriff, Zauber, Trank und Flucht stehen zur Wahl, bis die Ratten im Wirtshauske
 **Technik:** reines HTML, CSS und JavaScript. Kein Build, kein Server, keine Abhängigkeiten
 außer Google Fonts (mit Internetverbindung) und optionaler Web-Audio-Unterstützung.
 
+**Online spielen:** <https://karateswenni.github.io/ritter-von-frohburg-2/>
+
 ---
 
 ## Schnellstart
