@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <meta name="description" content="Die Ritter von Frohburg 2 – Der Zauberkaffee. Ein Indoor-Abenteuer aus Frohburg.">
+  <meta name="theme-color" content="#2d1c12">
+  <title>Die Ritter von Frohburg 2 – Der Zauberkaffee</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=MedievalSharp&family=Patrick+Hand&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="app">
+    <!-- ============ INTRO ============ -->
+    <section id="intro" class="intro" aria-label="Intro">
+      <div class="intro-glow" aria-hidden="true"></div>
+      <div class="intro-card">
+        <div class="intro-art">
+          <img id="intro-img" alt="">
+          <div class="intro-art-frame" aria-hidden="true"></div>
+        </div>
+        <div class="intro-copy">
+          <p id="intro-kicker" class="kicker"></p>
+          <h1 id="intro-title" class="intro-title"></h1>
+          <p id="intro-text" class="intro-text"></p>
+          <div class="intro-actions">
+            <button id="intro-next" class="btn btn-primary" type="button">Weiter</button>
+            <button id="intro-skip" class="btn btn-ghost" type="button">Überspringen</button>
+          </div>
+          <div id="intro-dots" class="intro-dots" aria-hidden="true"></div>
+        </div>
+      </div>
+      <p class="intro-footnote">Ein Indoor-Abenteuer für Die Ritter von Frohburg 2</p>
+    </section>
+
+    <!-- ============ GAME ============ -->
+    <section id="game" class="game hidden" aria-label="Spiel">
+      <header class="topbar">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">☕</div>
+          <div>
+            <p class="brand-kicker">Die Ritter von Frohburg 2</p>
+            <h1>Der Zauberkaffee</h1>
+          </div>
+        </div>
+        <nav class="topbar-actions" aria-label="Spielmenü">
+          <button id="btn-questbook" class="btn btn-ghost btn-small" type="button">Questbuch</button>
+          <button id="btn-replay-intro" class="btn btn-ghost btn-small" type="button">Intro</button>
+          <button id="btn-reset" class="btn btn-ghost btn-small" type="button">Neu starten</button>
+        </nav>
+      </header>
+
+      <main class="game-layout">
+        <section class="map-panel" aria-label="Karte von Frohburg">
+          <div class="map-frame">
+            <div id="map" class="map"></div>
+            <div class="map-title" aria-hidden="true">
+              <span>Frohburg</span>
+              <small>Eine Stadt hält ein Mittagsschläfchen</small>
+            </div>
+          </div>
+          <div class="map-legend" aria-label="Legende">
+            <span><i class="dot dot-open"></i> Offen</span>
+            <span><i class="dot dot-solved"></i> Geschafft</span>
+            <span><i class="dot dot-locked"></i> Verschlossen</span>
+            <span class="legend-tip">Tippe auf einen Ort, um zu reisen.</span>
+            <span class="map-scroll-hint">Wische über die Karte, um alle Orte zu sehen.</span>
+          </div>
+        </section>
+
+        <aside class="sidebar">
+          <section class="panel quest-panel">
+            <p class="panel-kicker">Dein Auftrag</p>
+            <h2 id="quest-title">Finde die letzte Sternenbohne</h2>
+            <p id="quest-text">Der Zauberkaffee ist alle und ganz Frohburg schläft ein. Der Barde an der Postmeilensäule weiß vielleicht mehr.</p>
+            <div class="progress-row">
+              <div class="progress" aria-hidden="true"><span id="progress-bar"></span></div>
+              <span id="progress-count">0 / 10</span>
+            </div>
+            <div class="digit-block">
+              <p class="panel-kicker">Kaffeesatz-Ziffern</p>
+              <div class="digit-strip" data-digit-strip aria-label="Gefundene Koordinaten-Ziffern"></div>
+            </div>
+          </section>
+
+          <section class="panel inventory-panel">
+            <div class="panel-head">
+              <div>
+                <p class="panel-kicker">Inventar</p>
+                <h2>Was du dabei hast</h2>
+              </div>
+              <span id="inventory-count" class="badge">0</span>
+            </div>
+            <div id="inventory" class="inventory">
+              <p class="empty-note">Noch nichts gesammelt. Der Barde wartet schon.</p>
+            </div>
+          </section>
+
+          <section class="panel hint-panel">
+            <p class="panel-kicker">Der Barde flüstert</p>
+            <p id="hint-text">„Gähn ... frag mich, wenn du nicht weiterweißt. Aber leise, ja?“</p>
+            <button id="btn-hint" class="btn btn-small" type="button">Hinweis anzeigen</button>
+          </section>
+        </aside>
+      </main>
+
+      <footer class="footer">
+        <span>Die Ritter von Frohburg 2 · Der Zauberkaffee</span>
+        <span id="debug-links" class="debug-links"></span>
+      </footer>
+    </section>
+
+    <!-- ============ CHAPTER MODAL ============ -->
+    <div id="chapter-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="chapter-title">
+      <div class="modal-card chapter-card">
+        <button class="modal-close" data-close="chapter" type="button" aria-label="Kapitel schließen">×</button>
+        <header class="chapter-head">
+          <p id="chapter-kicker" class="kicker"></p>
+          <h2 id="chapter-title"></h2>
+          <p id="chapter-subtitle" class="chapter-subtitle"></p>
+        </header>
+        <div class="chapter-body">
+          <aside class="portrait-card" id="portrait-card">
+            <img id="chapter-portrait" alt="">
+            <div class="portrait-caption">
+              <strong id="chapter-character"></strong>
+              <span id="chapter-character-role"></span>
+            </div>
+          </aside>
+          <div class="chapter-content">
+            <div id="chapter-story" class="story"></div>
+            <div id="puzzle-area" class="puzzle-area"></div>
+            <div id="chapter-feedback" class="feedback hidden" role="status"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ QUESTBOOK MODAL ============ -->
+    <div id="questbook-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="questbook-title">
+      <div class="modal-card questbook-card">
+        <button class="modal-close" data-close="questbook" type="button" aria-label="Questbuch schließen">×</button>
+        <header class="chapter-head">
+          <p class="kicker">Questbuch</p>
+          <h2 id="questbook-title">Der Weg durch Frohburg</h2>
+          <p class="chapter-subtitle">Zehn Zutaten, sechs Kaffeesatz-Ziffern und ein sehr müder König.</p>
+        </header>
+        <div id="questbook-list" class="questbook-list"></div>
+      </div>
+    </div>
+
+    <!-- ============ FINAL MODAL ============ -->
+    <div id="final-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="final-title">
+      <div class="modal-card final-card" id="final-card">
+        <button class="modal-close" data-close="final" type="button" aria-label="Finale schließen">×</button>
+
+        <div class="final-dragon" aria-hidden="true">
+          <svg viewBox="-16 -16 32 32"><use href="#icon-dragon" x="-16" y="-16" width="32" height="32"></use></svg>
+        </div>
+        <div class="final-steam" aria-hidden="true"><span></span><span></span><span></span></div>
+        <p class="kicker">Das Finale</p>
+        <h2 id="final-title">Der Zauberkaffee ist gerettet!</h2>
+        <p class="final-text" id="final-text">Frido hat die letzte Sternenbohne zurückgebracht. Jetzt fehlt nur noch der Zauberkaffee.</p>
+
+        <div id="final-brew" class="brew-area">
+          <div class="cauldron" aria-hidden="true">
+            <div class="cauldron-puffs"><span></span><span></span><span></span></div>
+            <div class="cauldron-pot">
+              <span class="cauldron-rim"></span>
+              <span class="cauldron-brew"></span>
+            </div>
+            <span class="cauldron-count" id="brew-count">0 / 10</span>
+          </div>
+
+          <p class="brew-status" id="brew-status">Frido hält die letzte Sternenbohne bereit. Gib alle zehn Zutaten in den Kessel.</p>
+
+          <div id="brew-ingredients" class="brew-ingredients"></div>
+
+          <div class="puzzle-actions brew-actions">
+            <button id="btn-brew" class="btn btn-primary" type="button">Zauberkaffee brauen</button>
+          </div>
+        </div>
+
+        <div id="final-result" class="final-result hidden">
+          <p class="final-reveal">Prost, Frohburg!</p>
+          <div class="coordinate-card">
+            <span id="final-badge" class="badge badge-warn">Platzhalter</span>
+            <p id="final-coords">N 51° 03.123&nbsp;&nbsp;&nbsp;E 012° 33.456</p>
+            <button id="btn-copy-coords" class="btn btn-small" type="button">Koordinaten kopieren</button>
+          </div>
+          <div class="digit-strip final-digits" data-digit-strip aria-label="Die sechs Kaffeesatz-Ziffern"></div>
+          <p id="final-note" class="small-note">Platzhalter: Die echten Finalkoordinaten werden später eingesetzt.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ RESET MODAL ============ -->
+    <div id="reset-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="reset-title">
+      <div class="modal-card confirm-card">
+        <p class="kicker">Neu starten</p>
+        <h2 id="reset-title">Wirklich von vorn beginnen?</h2>
+        <p>Dein Fortschritt, dein Inventar und alle gefundenen Ziffern werden gelöscht.</p>
+        <div class="modal-actions">
+          <button id="btn-reset-cancel" class="btn btn-ghost" type="button">Abbrechen</button>
+          <button id="btn-reset-confirm" class="btn btn-danger" type="button">Alles löschen</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+
+    <noscript>
+      <div class="noscript">Dieses Abenteuer benötigt JavaScript. Bitte aktiviere JavaScript in deinem Browser.</div>
+    </noscript>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/map.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
