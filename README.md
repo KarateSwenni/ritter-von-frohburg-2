@@ -99,7 +99,7 @@ und 10 vergeben keine Ziffer.
 | # | Ort | Rätsel | Lösung |
 |---|-----|--------|--------|
 | 1 | Postmeilensäule | Farbiges Nonogramm | Bild der **Sternenbohne** malen (10×10, Gold/Braun) |
-| 2 | Markt | Kreuzworträtsel (Märchen, 15 Begriffe) | **SCHNEEWITTCHEN · HANSIMGLUECK · DORNROESCHEN · FROSCHKOENIG · ROTKAEPPCHEN · GRETEL · STERNTALER · ASCHENPUTTEL · DROSSELBART · RAPUNZEL · FRAUHOLLE · KNUSPERHAUS · ALADIN · GOLDESEL · ZWERGNASE** |
+| 2 | Markt | Kreuzworträtsel (Märchen, 15 Begriffe) | **KÖNIGDROSSELBART · RUMPELSTILZCHEN · HANSIMGLÜCK · HÄNSELUNDGRETEL · ASCHENPUTTEL · SCHNEEWITTCHEN · FROSCHKÖNIG · FRAUHOLLE · ROTKÄPPCHEN · GÄNSEMAGD · GOLDENEGANS · DORNRÖSCHEN · STERNTALER · RAPUNZEL · ZWERGNASE** |
 | 3 | Rathaus | Drei Siegelringe | **Löwe / Stern / Braun** |
 | 4 | Bibliothek | Cover-Puzzle | Zwölf Teile zum Bestiarium-Cover zusammensetzen; die Runen darauf mit dem Schlüssel übersetzen → **FRIDO** |
 | 5 | Appellplatz | Zeiger-Timing | **3 Treffer** im grünen Feld |

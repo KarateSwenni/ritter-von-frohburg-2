@@ -221,114 +221,114 @@ const GAME = {
         title: "Karls Kreuzworträtsel",
         prompt:
           "Lies die verqueren Beschreibungen und trage das passende Märchen ein. Jede Antwort kreuzt mindestens eine andere.",
-        rows: 21,
-        cols: 14,
+        rows: 24,
+        cols: 18,
         words: [
           {
             dir: "across",
             row: 0,
+            col: 1,
+            answer: "KÖNIGDROSSELBART",
+            clue: "Spöttischer Königssohn mit Vogelnamen erteilt einer hochnäsigen Prinzessin eine Lektion in Demut."
+          },
+          {
+            dir: "down",
+            row: 0,
+            col: 7,
+            answer: "RUMPELSTILZCHEN",
+            clue: "Kleiner Mann mit Goldfimmel spinnt aus Stroh Gold und verliert am Ende seinen Namen."
+          },
+          {
+            dir: "across",
+            row: 2,
+            col: 2,
+            answer: "HANSIMGLÜCK",
+            clue: "Tauschfanatiker gibt Gold gegen Pferd, Kuh, Schwein, Gans und am Ende Steine - und ist froh, dass er nichts mehr schleppen muss."
+          },
+          {
+            dir: "across",
+            row: 4,
+            col: 3,
+            answer: "HÄNSELUNDGRETEL",
+            clue: "Geschwister, die im Wald erst Brotkrumen verlieren und später eine Hexe im Ofen verschwinden lassen."
+          },
+          {
+            dir: "across",
+            row: 6,
+            col: 6,
+            answer: "ASCHENPUTTEL",
+            clue: "Fachkraft für Hülsenfrüchte und Kinderschuhgrößen macht am Hof überraschend Karriere."
+          },
+          {
+            dir: "across",
+            row: 8,
             col: 0,
             answer: "SCHNEEWITTCHEN",
             clue: "Kindergärtnerin überlebt drei Mordanschläge und heiratet einen reichen Junggesellen."
           },
           {
             dir: "down",
-            row: 0,
-            col: 11,
-            answer: "HANSIMGLUECK",
-            clue: "Tauschfanatiker gibt Gold gegen Pferd, Kuh, Schwein, Gans und am Ende Steine – und ist froh, dass er nichts mehr schleppen muss."
-          },
-          {
-            dir: "across",
-            row: 2,
+            row: 10,
             col: 0,
-            answer: "DORNROESCHEN",
-            clue: "Mädchen sticht sich an einer Pflanze, schläft hundert Jahre und wird von einem Spaziergänger geweckt, der offenbar keine Uhr dabei hatte."
-          },
-          {
-            dir: "down",
-            row: 4,
-            col: 4,
-            answer: "FROSCHKOENIG",
-            clue: "Prinzessin küsst einen Frosch, um ihren Ball zurückzubekommen – und erbt einen sehr klebrigen Ehemann."
-          },
-          {
-            dir: "down",
-            row: 5,
-            col: 1,
-            answer: "ROTKAEPPCHEN",
-            clue: "Kind mit auffälliger Kopfbedeckung trifft im Wald einen Wolf mit schlechtem Sehvermögen und noch schlechteren Manieren."
-          },
-          {
-            dir: "across",
-            row: 5,
-            col: 3,
-            answer: "GRETEL",
-            clue: "Hälfte eines berühmten Geschwisterduos, das erst Süßes nascht und die Hausherrin danach in deren eigenem Ofen entsorgt."
-          },
-          {
-            dir: "across",
-            row: 7,
-            col: 4,
-            answer: "STERNTALER",
-            clue: "Kind verschenkt alles bis aufs Hemd und wird dafür mit Edelmetall vom Himmel beworfen."
-          },
-          {
-            dir: "across",
-            row: 9,
-            col: 1,
-            answer: "ASCHENPUTTEL",
-            clue: "Fachkraft für Hülsenfrüchte und Kinderschuhgrößen macht am Hof überraschend Karriere."
+            answer: "FROSCHKÖNIG",
+            clue: "Prinzessin küsst einen Frosch, um ihren Ball zurückzubekommen - und erbt einen sehr klebrigen Ehemann."
           },
           {
             dir: "down",
             row: 10,
-            col: 13,
-            answer: "DROSSELBART",
-            clue: "Spöttischer Königssohn mit Vogelnamen erteilt einer hochnäsigen Prinzessin eine Lektion in Demut."
-          },
-          {
-            dir: "down",
-            row: 11,
-            col: 7,
-            answer: "RAPUNZEL",
-            clue: "Auffällige Haartracht ermöglicht ein Liebesabenteuer mit Turm-Aussicht."
-          },
-          {
-            dir: "down",
-            row: 12,
-            col: 9,
+            col: 12,
             answer: "FRAUHOLLE",
             clue: "Wetterhexe mit Federbett-Routine: Wer fleißig schüttelt, bekommt Gold; wer nur danebensteht, Pech."
           },
           {
             dir: "across",
-            row: 13,
-            col: 3,
-            answer: "KNUSPERHAUS",
-            clue: "Konditorei im Wald mit zweifelhaftem Geschäftsmodell: Der Keks kommt gratis, der Kunde landet danach im Ofen."
+            row: 11,
+            col: 0,
+            answer: "ROTKÄPPCHEN",
+            clue: "Kind mit auffälliger Kopfbedeckung trifft im Wald einen Wolf mit schlechtem Sehvermögen und noch schlechteren Manieren."
+          },
+          {
+            dir: "down",
+            row: 12,
+            col: 14,
+            answer: "GÄNSEMAGD",
+            clue: "Prinzessin, deren Dienstmädchen die Identität stiehlt; am Ende lüftet ein sprechender Pferdekopf den Betrug."
           },
           {
             dir: "down",
             row: 13,
-            col: 11,
-            answer: "ALADIN",
-            clue: "Mutiger Jüngling bekämpft böse Zauberei mit einem Beleuchtungskörper und bekommt dafür die Prinzessin."
+            col: 5,
+            answer: "GOLDENEGANS",
+            clue: "Junge, der eine goldene Gans stiehlt und damit eine ganze Kette von Menschen festkleben lässt."
           },
           {
             dir: "across",
-            row: 18,
+            row: 14,
+            col: 4,
+            answer: "DORNRÖSCHEN",
+            clue: "Mädchen sticht sich an einer Pflanze, schläft hundert Jahre und wird von einem Spaziergänger geweckt, der offenbar keine Uhr dabei hatte."
+          },
+          {
+            dir: "down",
+            row: 14,
+            col: 10,
+            answer: "STERNTALER",
+            clue: "Kind verschenkt alles bis aufs Hemd und wird dafür mit Edelmetall vom Himmel beworfen."
+          },
+          {
+            dir: "down",
+            row: 16,
+            col: 2,
+            answer: "RAPUNZEL",
+            clue: "Auffällige Haartracht ermöglicht ein Liebesabenteuer mit Turm-Aussicht."
+          },
+          {
+            dir: "across",
+            row: 22,
             col: 0,
-            answer: "GOLDESEL",
-            clue: "Esel mit sehr lukrativer Verdauung – jeder Stallbesuch endet in einem kleinen Vermögen."
-          },
-          {
-            dir: "across",
-            row: 20,
-            col: 1,
             answer: "ZWERGNASE",
             clue: "Mangelnde Kräuterkunde führt zu einer deutlichen optischen Veränderung."
-          }
+          },
         ],
         note:
           "Karls Notiz: „Märchen kann ich im Halbschlaf nur noch verquer erzählen. Aber die Wörter passen zusammen – eins kreuzt das andere. Prüfen kostet eine Prüfung: Du hast fünf.“",

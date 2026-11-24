@@ -1114,14 +1114,13 @@ function renderSacksPuzzle(loc) {
 }
 
 /* --- Kapitel 2: Kreuzworträtsel --- */
-const CROSSWORD_KEYS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+const CROSSWORD_KEYS = "ABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÜ".split("");
 
 function crosswordNormalize(text) {
   return text
     .toUpperCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/[^A-Z]/g, "");
+    .replace(/\s+/g, "")
+    .replace(/[^A-ZÄÖÜ]/g, "");
 }
 
 function buildCrossword(puzzle) {
