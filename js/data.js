@@ -367,7 +367,6 @@ const GAME = {
       story: [
         "Im Rathaus riecht es nach Staub, Tinte und kaltem Kaffee. Der Stadtschreiber liegt mit dem Gesicht auf einem Vertrag und schnarcht im Takt der Standuhr.",
         "In der Schublade steckt die alte Zunftakte – und ein Brief. „Ohne die drei Zahlen kein Siegel“, murmelt er im Schlaf.",
-        "Auf dem Brief stehen sechs Zeilen. Die Anfangsbuchstaben ergeben ein Passwort."
       ],
       puzzle: {
         type: "letter",
@@ -383,7 +382,7 @@ const GAME = {
         ],
         password: "KAFFEE",
         note:
-          "Karls Notiz: „Lies die Anfangsbuchstaben der Zeilen von oben nach unten – sie ergeben das Passwort.“",
+          "Karls Notiz: „Das Passwort öffnet die Akte.“",
         hint:
           "Der erste Buchstabe jeder Zeile ergibt zusammen ein bekanntes Getränk.",
         success:
