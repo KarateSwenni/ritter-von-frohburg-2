@@ -1160,6 +1160,54 @@ button.clue.done:hover {
   text-align: center;
 }
 
+.nonogram-lives {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 12px 0 0;
+  padding: 6px 13px;
+  border: 1px solid rgba(201, 162, 39, 0.55);
+  border-radius: 999px;
+  background: rgba(201, 162, 39, 0.12);
+  font-family: "Cinzel", serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+
+.nonogram-lives-label {
+  letter-spacing: 0.1em;
+}
+
+.nonogram-lives-dots {
+  display: inline-flex;
+  gap: 5px;
+}
+
+.life-dot {
+  width: 13px;
+  height: 13px;
+  border: 1px solid #a5822a;
+  border-radius: 50%;
+  background: radial-gradient(circle at 34% 30%, #fbe9a8, #e0b64f 55%, #c9a227);
+  box-shadow: 0 1px 2px rgba(47, 33, 22, 0.28);
+  transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.life-dot.used {
+  background: #ded0b4;
+  border-color: rgba(63, 38, 22, 0.28);
+  box-shadow: none;
+  transform: scale(0.85);
+}
+
+.nonogram-lives-count {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+  color: var(--ink-soft);
+}
+
 .nonogram-board {
   display: grid;
   border-radius: 5px;
@@ -3878,6 +3926,17 @@ button.clue.done:hover {
     padding: 0 3px;
     border-radius: 4px;
     font-size: 0.68rem;
+  }
+
+  .nonogram-lives {
+    gap: 8px;
+    padding: 5px 10px;
+    font-size: 0.66rem;
+  }
+
+  .life-dot {
+    width: 12px;
+    height: 12px;
   }
 
   .dpad {

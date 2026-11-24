@@ -712,8 +712,10 @@ function renderNonogramPuzzle(loc) {
   });
 
   const painted = Array.from({ length: rows }, () => Array(cols).fill(""));
+  const MAX_CHECKS = 3;
   let selected = puzzle.colors[0].key;
   let painting = false;
+  let checksLeft = MAX_CHECKS;
 
   const rowClues = puzzle.solution.map((row) => nonogramRuns(row));
   const columnClues = [];
@@ -797,6 +799,9 @@ function renderNonogramPuzzle(loc) {
       <p class="nonogram-tip">Tippe auf eine Zahl am Rand, um sie wegzustreichen.</p>
 
       <p class="puzzle-note">${esc(puzzle.note)}</p>
+
+      <div class="nonogram-lives" id="nonogram-lives" role="status"></div>
+
       <div class="puzzle-actions">
         ${puzzleActions("nonogram-check", "Bild prüfen")}
         <button class="btn btn-ghost btn-small" type="button" id="nonogram-reset">Leeren</button>
@@ -908,34 +913,55 @@ function renderNonogramPuzzle(loc) {
   window.addEventListener("pointerup", stopPaint);
   window.addEventListener("pointercancel", stopPaint);
 
-  const clearMarks = () => {
-    board.querySelectorAll(".nonogram-cell.wrong").forEach((cell) => {
-      cell.classList.remove("wrong");
-    });
+  const livesEl = $("#nonogram-lives");
+  const checkButton = $("#nonogram-check");
+
+  const renderLives = () => {
+    const dots = Array.from({ length: MAX_CHECKS }, (_, index) => {
+      const used = index >= checksLeft;
+      return `<span class="life-dot${used ? " used" : ""}"></span>`;
+    }).join("");
+    livesEl.innerHTML = `
+      <span class="nonogram-lives-label">Prüfungen</span>
+      <span class="nonogram-lives-dots" aria-hidden="true">${dots}</span>
+      <span class="nonogram-lives-count">${checksLeft} von ${MAX_CHECKS}</span>`;
+    livesEl.setAttribute("aria-label", `Noch ${checksLeft} von ${MAX_CHECKS} Prüfungen`);
   };
 
-  $("#nonogram-check").addEventListener("click", () => {
+  const clearBoard = () => {
+    painted.forEach((row) => row.fill(""));
+    cells.forEach((cell) => {
+      puzzle.colors.forEach((color) => cell.classList.remove(`color-${color.css}`));
+      cell.classList.remove("wrong", "marked");
+      cell.dataset.color = "";
+      cell.setAttribute(
+        "aria-label",
+        `Zeile ${Number(cell.dataset.row) + 1}, Spalte ${Number(cell.dataset.col) + 1}: leer`
+      );
+    });
+    clueButtons.forEach((clue) => setClueDone(clue, false));
+  };
+
+  checkButton.addEventListener("click", () => {
     const filled = painted.flat().filter((value) => value && value !== NONOGRAM_MARK).length;
     if (!filled) {
       showFeedback("Das Bild ist noch leer. Wähle eine Farbe und mal die Felder aus.", "err");
       return;
     }
 
-    clearMarks();
     const missing = [];
     const wrongColor = [];
     const wrongMark = [];
     painted.forEach((row, r) => {
       row.forEach((value, c) => {
         const expected = puzzle.solution[r][c] === "." ? "" : puzzle.solution[r][c];
-        const cell = board.querySelector(`[data-row="${r}"][data-col="${c}"]`);
         if (value === NONOGRAM_MARK) {
-          if (expected !== "") wrongMark.push(cell);
+          if (expected !== "") wrongMark.push(1);
           return;
         }
         if (value === expected) return;
-        if (!value) missing.push(cell);
-        else wrongColor.push(cell);
+        if (!value) missing.push(1);
+        else wrongColor.push(1);
       });
     });
 
@@ -948,12 +974,7 @@ function renderNonogramPuzzle(loc) {
       return;
     }
 
-    wrongColor.concat(wrongMark).forEach((cell) => cell?.classList.add("wrong"));
-    if (wrongColor.length || wrongMark.length) {
-      if (activeNonogram?.wrongTimer) clearTimeout(activeNonogram.wrongTimer);
-      const timer = setTimeout(clearMarks, 1400);
-      if (activeNonogram) activeNonogram.wrongTimer = timer;
-    }
+    checksLeft -= 1;
 
     const parts = [];
     if (wrongColor.length) {
@@ -972,36 +993,38 @@ function renderNonogramPuzzle(loc) {
         `${missing.length} Feld${missing.length === 1 ? " ist" : "er sind"} noch leer`
       );
     }
+    const summary = parts.join(", ");
 
-    let message;
-    if (parts.length === 1 && missing.length) {
-      message = `${parts[0]}. Mal ${missing.length === 1 ? "es" : "sie"} nach den Zahlen aus.`;
-    } else {
-      message = `${parts.join(", ")}. Die roten Felder zeigen dir, wo du noch einmal schauen solltest.`;
+    if (checksLeft <= 0) {
+      checksLeft = MAX_CHECKS;
+      clearBoard();
+      renderLives();
+      tone(147, 0.3, 0, "triangle");
+      showFeedback(
+        `${summary}. Damit sind alle drei Prüfungen verbraucht – das Pergament ist wieder leer. Du hast drei neue Prüfungen.`,
+        "err"
+      );
+      return;
     }
 
-    showFeedback(message, "err");
+    renderLives();
+    tone(196, 0.22, 0, "triangle");
+    showFeedback(
+      `${summary}. Noch ${checksLeft} ${checksLeft === 1 ? "Prüfung" : "Prüfungen"} übrig.`,
+      "err"
+    );
   });
 
   $("#nonogram-reset").addEventListener("click", () => {
     painting = false;
-    painted.forEach((row) => row.fill(""));
-    cells.forEach((cell) => {
-      puzzle.colors.forEach((color) => cell.classList.remove(`color-${color.css}`));
-      cell.classList.remove("wrong", "marked");
-      cell.dataset.color = "";
-      cell.setAttribute(
-        "aria-label",
-        `Zeile ${Number(cell.dataset.row) + 1}, Spalte ${Number(cell.dataset.col) + 1}: leer`
-      );
-    });
-    clueButtons.forEach((clue) => setClueDone(clue, false));
+    clearBoard();
     showFeedback("Alles wieder leer. Du kannst von vorn malen.", "hint");
   });
 
+  renderLives();
+
   activeNonogram = {
-    stopPaint,
-    wrongTimer: null
+    stopPaint
   };
 }
 
@@ -3058,7 +3081,6 @@ function stopActivePuzzles() {
   if (activeNonogram) {
     window.removeEventListener("pointerup", activeNonogram.stopPaint);
     window.removeEventListener("pointercancel", activeNonogram.stopPaint);
-    if (activeNonogram.wrongTimer) clearTimeout(activeNonogram.wrongTimer);
     activeNonogram = null;
   }
 }
