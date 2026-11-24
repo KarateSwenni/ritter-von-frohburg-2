@@ -214,64 +214,120 @@ const GAME = {
       story: [
         "Der Marktplatz ist wie leergefegt. Nur Karls Kaffeebude steht noch da – verrammelt, mit einem Schild: „Wegen Schlaf geschlossen.“",
         "Dahinter liegt Karl auf einem Sack Sternenbohnen und schnarcht. Neben ihm sitzt der Dieb von damals und kritzelt mit letzter Kraft auf einen Zettel. „Ich wollte doch nur den Kaffee aufwecken“, murmelt er im Schlaf.",
-        "Auf der Theke klebt der Zettel: ein Kreuzworträtsel, halb ausgefüllt, mit sieben verqueren Beschreibungen. Darunter steht in Karls Handschrift: „Wer das löst, darf an die Luke.“"
+        "Auf der Theke klebt der Zettel: ein Kreuzworträtsel, halb ausgefüllt, mit fünfzehn verqueren Beschreibungen. Darunter steht in Karls Handschrift: „Wer das löst, darf an die Luke.“"
       ],
       puzzle: {
         type: "crossword",
         title: "Karls Kreuzworträtsel",
         prompt:
           "Lies die verqueren Beschreibungen und trage das passende Märchen ein. Jede Antwort kreuzt mindestens eine andere.",
-        rows: 12,
+        rows: 21,
         cols: 14,
         words: [
           {
-            dir: "down",
-            row: 0,
-            col: 9,
-            answer: "STERNTALER",
-            clue: "Kind verschenkt alles bis aufs Hemd und wird dafür mit Edelmetall vom Himmel beworfen."
-          },
-          {
             dir: "across",
-            row: 1,
+            row: 0,
             col: 0,
             answer: "SCHNEEWITTCHEN",
             clue: "Kindergärtnerin überlebt drei Mordanschläge und heiratet einen reichen Junggesellen."
           },
           {
+            dir: "down",
+            row: 0,
+            col: 11,
+            answer: "HANSIMGLUECK",
+            clue: "Tauschfanatiker gibt Gold gegen Pferd, Kuh, Schwein, Gans und am Ende Steine – und ist froh, dass er nichts mehr schleppen muss."
+          },
+          {
             dir: "across",
-            row: 3,
+            row: 2,
             col: 0,
-            answer: "RAPUNZEL",
-            clue: "Auffällige Haartracht ermöglicht ein Liebesabenteuer mit Turm-Aussicht."
+            answer: "DORNROESCHEN",
+            clue: "Mädchen sticht sich an einer Pflanze, schläft hundert Jahre und wird von einem Spaziergänger geweckt, der offenbar keine Uhr dabei hatte."
           },
           {
             dir: "down",
-            row: 3,
+            row: 4,
+            col: 4,
+            answer: "FROSCHKOENIG",
+            clue: "Prinzessin küsst einen Frosch, um ihren Ball zurückzubekommen – und erbt einen sehr klebrigen Ehemann."
+          },
+          {
+            dir: "down",
+            row: 5,
             col: 1,
-            answer: "ALADIN",
-            clue: "Mutiger Jüngling bekämpft böse Zauberei mit einem Beleuchtungskörper und bekommt dafür die Prinzessin."
-          },
-          {
-            dir: "down",
-            row: 3,
-            col: 5,
-            answer: "ZWERGNASE",
-            clue: "Mangelnde Kräuterkunde führt zu einer deutlichen optischen Veränderung."
+            answer: "ROTKAEPPCHEN",
+            clue: "Kind mit auffälliger Kopfbedeckung trifft im Wald einen Wolf mit schlechtem Sehvermögen und noch schlechteren Manieren."
           },
           {
             dir: "across",
             row: 5,
+            col: 3,
+            answer: "GRETEL",
+            clue: "Hälfte eines berühmten Geschwisterduos, das erst Süßes nascht und die Hausherrin danach in deren eigenem Ofen entsorgt."
+          },
+          {
+            dir: "across",
+            row: 7,
+            col: 4,
+            answer: "STERNTALER",
+            clue: "Kind verschenkt alles bis aufs Hemd und wird dafür mit Edelmetall vom Himmel beworfen."
+          },
+          {
+            dir: "across",
+            row: 9,
             col: 1,
             answer: "ASCHENPUTTEL",
             clue: "Fachkraft für Hülsenfrüchte und Kinderschuhgrößen macht am Hof überraschend Karriere."
           },
           {
-            dir: "across",
-            row: 11,
-            col: 0,
+            dir: "down",
+            row: 10,
+            col: 13,
             answer: "DROSSELBART",
             clue: "Spöttischer Königssohn mit Vogelnamen erteilt einer hochnäsigen Prinzessin eine Lektion in Demut."
+          },
+          {
+            dir: "down",
+            row: 11,
+            col: 7,
+            answer: "RAPUNZEL",
+            clue: "Auffällige Haartracht ermöglicht ein Liebesabenteuer mit Turm-Aussicht."
+          },
+          {
+            dir: "down",
+            row: 12,
+            col: 9,
+            answer: "FRAUHOLLE",
+            clue: "Wetterhexe mit Federbett-Routine: Wer fleißig schüttelt, bekommt Gold; wer nur danebensteht, Pech."
+          },
+          {
+            dir: "across",
+            row: 13,
+            col: 3,
+            answer: "KNUSPERHAUS",
+            clue: "Konditorei im Wald mit zweifelhaftem Geschäftsmodell: Der Keks kommt gratis, der Kunde landet danach im Ofen."
+          },
+          {
+            dir: "down",
+            row: 13,
+            col: 11,
+            answer: "ALADIN",
+            clue: "Mutiger Jüngling bekämpft böse Zauberei mit einem Beleuchtungskörper und bekommt dafür die Prinzessin."
+          },
+          {
+            dir: "across",
+            row: 18,
+            col: 0,
+            answer: "GOLDESEL",
+            clue: "Esel mit sehr lukrativer Verdauung – jeder Stallbesuch endet in einem kleinen Vermögen."
+          },
+          {
+            dir: "across",
+            row: 20,
+            col: 1,
+            answer: "ZWERGNASE",
+            clue: "Mangelnde Kräuterkunde führt zu einer deutlichen optischen Veränderung."
           }
         ],
         note:
