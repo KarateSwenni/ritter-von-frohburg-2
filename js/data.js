@@ -423,16 +423,16 @@ const GAME = {
         "Ein zerrissenes Buchcover wartet auf geschickte Hände. Die Runen darauf verraten den Namen des Drachen.",
       story: [
         "Die Bibliothek ist still. Zu still. Die Bibliothekarin sitzt hinter ihrem Schreibtisch, die Brille verrutscht, und schläft auf einem aufgeschlagenen Buch.",
-        "Auf dem Schreibtisch liegt ein schweres Bestiarium. Sein lederner Einband ist in zwölf Stücke zerfallen, die über die ganze Platte verstreut sind.",
+        "Auf dem Schreibtisch liegt ein schweres Bestiarium. Sein lederner Einband ist in vierundzwanzig Stücke zerfallen, die über die ganze Platte verstreut sind.",
         "„Setz das Cover zusammen“, murmelt sie im Schlaf. „Dann zeigen dir die Runen den Namen des Drachen.“"
       ],
       puzzle: {
         type: "jigsaw",
         title: "Das zerrissene Cover",
         prompt:
-          "Das Cover des Bestiariums ist in zwölf Stücke zerfallen. Tausche die Teile, bis das Bild wieder vollständig ist – dann erscheinen die Runen des Drachen.",
-        cols: 4,
-        rows: 3,
+          "Das Cover des Bestiariums ist in vierundzwanzig Stücke zerfallen. Tausche die Teile, bis das Bild wieder vollständig ist – dann erscheinen die Runen des Drachen.",
+        cols: 6,
+        rows: 4,
         sequence: ["f", "r", "i", "d", "o"],
         key: [
           { glyph: "f", letter: "F" },
