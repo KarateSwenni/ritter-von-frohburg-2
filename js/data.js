@@ -373,18 +373,24 @@ const GAME = {
         title: "Karls Brief",
         prompt: "",
         letter: [
-          "Kaffeebohnen lagern im Archiv.",
-          "Alle Siegel sind versiegelt.",
-          "Folge den Anfangsbuchstaben.",
-          "Führe das Passwort ein.",
-          "Eile, bevor der Kaffee kalt wird.",
-          "Es grüßt der Stadtschreiber."
+          "Seltene Bohnen lagern im Archiv.",
+          "Tinte und Pergament warten auf dich.",
+          "Eile, denn der Kaffee wird kalt.",
+          "Rufe die Zunft, wenn du wagst.",
+          "Nur wer das Passwort kennt, öffnet die Akte.",
+          "Echte Meister trinken ihn schwarz.",
+          "Nimm den ersten Buchstaben jeder Zeile.",
+          "Sieben? Nein, mehr als du denkst.",
+          "Tinte verrät Geheimnisse.",
+          "Auch der Stadtschreiber schläft.",
+          "Unter dem Siegel liegt der Schatz.",
+          "Bringe Licht ins Dunkel."
         ],
-        password: "KAFFEE",
+        password: "STERNENSTAUB",
         note:
           "Karls Notiz: „Das Passwort öffnet die Akte.“",
         hint:
-          "Der erste Buchstabe jeder Zeile ergibt zusammen ein bekanntes Getränk.",
+          "Lies die Anfangsbuchstaben der Zeilen von oben nach unten.",
         success:
           "Das Passwort stimmt. Die Akte klappt auf, und das Zunftsiegel glüht golden."
       },
