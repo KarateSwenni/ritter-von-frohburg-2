@@ -1062,8 +1062,8 @@ button {
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
-  gap: 1px;
-  padding: 2px 0 4px;
+  gap: 3px;
+  padding: 2px 0 5px;
   font-family: "Cinzel", serif;
   font-size: 0.75rem;
   line-height: 1.15;
@@ -1080,50 +1080,76 @@ button {
 }
 
 .clue {
-  min-width: 12px;
-  padding: 0 2px;
-  border: 0;
-  border-radius: 3px;
-  background: none;
-  font: inherit;
-  line-height: 1.15;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 4px;
+  border: 1px solid rgba(63, 38, 22, 0.25);
+  border-radius: 5px;
+  background: #e7d6b8;
+  box-shadow: 0 1px 2px rgba(47, 33, 22, 0.18);
+  font-family: "Cinzel", serif;
+  font-size: 0.76rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
   text-align: center;
   cursor: pointer;
-  transition: color 0.12s ease, background 0.12s ease, opacity 0.12s ease;
+  transition: filter 0.12s ease, transform 0.12s ease, opacity 0.12s ease,
+    box-shadow 0.12s ease;
   -webkit-appearance: none;
   appearance: none;
 }
 
 button.clue:hover {
-  background: rgba(201, 162, 39, 0.2);
+  filter: brightness(1.07);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(47, 33, 22, 0.24);
+}
+
+button.clue:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 1px rgba(47, 33, 22, 0.2);
 }
 
 button.clue:focus-visible {
   outline: 2px solid var(--gold-dark);
-  outline-offset: 1px;
+  outline-offset: 2px;
 }
 
 .clue-gold {
-  color: #8f6f1f;
+  color: #3a2412;
+  border-color: #a5822a;
+  background: linear-gradient(180deg, #fbe9a8 0%, #e5c150 60%, #c9a227 100%);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
 }
 
 .clue-brown {
-  color: #5b3a22;
+  color: #fdf4e4;
+  border-color: #3f2616;
+  background: linear-gradient(180deg, #9a6b45 0%, #6f4a2c 55%, #4c2f1b 100%);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
 }
 
 .clue.done {
-  color: #c0b29c;
+  opacity: 0.45;
   text-decoration: line-through;
   text-decoration-thickness: 2px;
-  opacity: 0.75;
+  text-decoration-color: currentColor;
 }
 
 button.clue.done:hover {
-  opacity: 1;
+  opacity: 0.7;
 }
 
 .clue-empty {
-  color: #b9a98f;
+  color: #9d8a6f;
+  border-color: rgba(63, 38, 22, 0.16);
+  background: #efe0c4;
+  box-shadow: none;
   cursor: default;
 }
 
@@ -3830,23 +3856,28 @@ button.clue.done:hover {
   }
 
   .nonogram {
-    --cell: 26px;
+    --cell: 23px;
     gap: 4px;
   }
 
   .nonogram-col-clue {
-    padding-bottom: 3px;
-    font-size: 0.62rem;
+    gap: 2px;
+    padding-bottom: 4px;
+    font-size: 0.66rem;
   }
 
   .nonogram-row-clue {
     gap: 3px;
-    padding-right: 5px;
+    padding-right: 3px;
     font-size: 0.7rem;
   }
 
   .clue {
-    min-width: 10px;
+    min-width: 17px;
+    height: 17px;
+    padding: 0 3px;
+    border-radius: 4px;
+    font-size: 0.68rem;
   }
 
   .dpad {
@@ -4018,3 +4049,45 @@ button.clue.done:hover {
     transition-duration: 0.001ms !important;
   }
 }
+
+/* Sehr schmale Handys: Nonogramm muss ohne Seitwärts-Scrollen passen */
+@media (max-width: 380px) {
+  .nonogram {
+    --cell: 21px;
+    gap: 3px;
+  }
+
+  .nonogram-col-clue {
+    gap: 1px;
+  }
+
+  .nonogram-row-clue {
+    gap: 2px;
+    padding-right: 3px;
+  }
+
+  .clue {
+    min-width: 16px;
+    height: 16px;
+    padding: 0 2px;
+    border-radius: 4px;
+    font-size: 0.64rem;
+  }
+}
+
+@media (max-width: 340px) {
+  .nonogram {
+    --cell: 20px;
+  }
+
+  .puzzle-card {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .nonogram-wrap {
+    margin-left: -10px;
+    margin-right: -10px;
+  }
+}
+
