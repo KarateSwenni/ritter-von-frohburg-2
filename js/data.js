@@ -435,11 +435,16 @@ const GAME = {
         rows: 4,
         sequence: ["f", "r", "i", "d", "o"],
         key: [
-          { glyph: "f", letter: "F" },
-          { glyph: "r", letter: "R" },
-          { glyph: "i", letter: "I" },
+          { glyph: "a", letter: "A" },
           { glyph: "d", letter: "D" },
-          { glyph: "o", letter: "O" }
+          { glyph: "e", letter: "E" },
+          { glyph: "f", letter: "F" },
+          { glyph: "i", letter: "I" },
+          { glyph: "l", letter: "L" },
+          { glyph: "o", letter: "O" },
+          { glyph: "r", letter: "R" },
+          { glyph: "s", letter: "S" },
+          { glyph: "t", letter: "T" }
         ],
         answer: "frido",
         answerLabel: "Name des Drachen",

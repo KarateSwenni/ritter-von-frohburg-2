@@ -8,11 +8,16 @@ const PARAMS = new URLSearchParams(window.location.search);
 
 /* Runen für das Bestiarium-Cover */
 const RUNE_PATHS = {
+  a: "M0-14 L-9 14 L9 14 M-5 0 H5",
   d: "M-9-12 L9 12 M9-12 L-9 12 M-9-12 H9 M-9 12 H9",
+  e: "M-9-14 H9 M-9 0 H4 M-9 14 H9",
   f: "M0 14 V-14 M0-5 L9-12 M0 2 L9-5",
   i: "M0 14 V-14",
+  l: "M-6 14 V-14 M-6 14 H6",
   o: "M0-14 L10 0 L0 14 L-10 0 Z M-10 0 L-15 8 M10 0 L15 8",
-  r: "M0 14 V-14 L9-8 L0-2 L9 14"
+  r: "M0 14 V-14 L9-8 L0-2 L9 14",
+  s: "M8-12 C0-16 -9-10 -9-4 C-9 2 9 4 9 10 C9 16 0 18 -8 14",
+  t: "M-9-14 H9 M0-14 V14"
 };
 
 function runeSvg(glyph) {
@@ -1551,7 +1556,9 @@ function renderJigsawPuzzle(loc) {
   const rows = puzzle.rows;
   const total = cols * rows;
   const coverUrl = bestiaryCoverUrl();
-  const keyEntries = shuffleCopy(puzzle.key);
+  const keyEntries = [...puzzle.key].sort((a, b) =>
+    a.letter.localeCompare(b.letter)
+  );
 
   let order = shuffledOrder(total);
   let selected = null;
