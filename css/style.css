@@ -965,6 +965,7 @@ button {
 .nonogram-palette {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 8px;
   margin: 14px 0;
 }
