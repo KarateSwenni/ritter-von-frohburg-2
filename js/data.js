@@ -424,7 +424,7 @@ const GAME = {
       story: [
         "Die Bibliothek ist still. Zu still. Die Bibliothekarin sitzt hinter ihrem Schreibtisch, die Brille verrutscht, und schläft auf einem aufgeschlagenen Buch.",
         "Auf dem Schreibtisch liegt ein schweres Bestiarium. Sein lederner Einband ist in vierundzwanzig Stücke zerfallen, die über die ganze Platte verstreut sind.",
-        "„Setz das Cover zusammen“, murmelt sie im Schlaf. „Dann zeigen dir die Runen den Namen des Drachen.“"
+        "Setz das Cover zusammen, murmelt sie im Schlaf. Dann zeigen dir die Runen den Namen des Drachen."
       ],
       puzzle: {
         type: "jigsaw",
@@ -436,15 +436,31 @@ const GAME = {
         sequence: ["f", "r", "i", "d", "o"],
         key: [
           { glyph: "a", letter: "A" },
+          { glyph: "b", letter: "B" },
+          { glyph: "c", letter: "C" },
           { glyph: "d", letter: "D" },
           { glyph: "e", letter: "E" },
           { glyph: "f", letter: "F" },
+          { glyph: "g", letter: "G" },
+          { glyph: "h", letter: "H" },
           { glyph: "i", letter: "I" },
+          { glyph: "j", letter: "J" },
+          { glyph: "k", letter: "K" },
           { glyph: "l", letter: "L" },
+          { glyph: "m", letter: "M" },
+          { glyph: "n", letter: "N" },
           { glyph: "o", letter: "O" },
+          { glyph: "p", letter: "P" },
+          { glyph: "q", letter: "Q" },
           { glyph: "r", letter: "R" },
           { glyph: "s", letter: "S" },
-          { glyph: "t", letter: "T" }
+          { glyph: "t", letter: "T" },
+          { glyph: "u", letter: "U" },
+          { glyph: "v", letter: "V" },
+          { glyph: "w", letter: "W" },
+          { glyph: "x", letter: "X" },
+          { glyph: "y", letter: "Y" },
+          { glyph: "z", letter: "Z" }
         ],
         answer: "frido",
         answerLabel: "Name des Drachen",
