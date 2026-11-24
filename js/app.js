@@ -1495,7 +1495,7 @@ function renderLetterPuzzle(loc) {
   $("#puzzle-area").innerHTML = `
     <div class="puzzle-card">
       <h3>${esc(puzzle.title)}</h3>
-      <p class="puzzle-prompt">${esc(puzzle.prompt)}</p>
+      ${puzzle.prompt ? `<p class="puzzle-prompt">${esc(puzzle.prompt)}</p>` : ""}
 
       <div class="letter-box">
         ${puzzle.letter.map((line) => `<p>${esc(line)}</p>`).join("")}

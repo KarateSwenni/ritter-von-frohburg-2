@@ -372,8 +372,7 @@ const GAME = {
       puzzle: {
         type: "letter",
         title: "Karls Brief",
-        prompt:
-          "Lies die Anfangsbuchstaben der Zeilen – sie ergeben das Passwort zur Akte.",
+        prompt: "",
         letter: [
           "Kaffeebohnen lagern im Archiv.",
           "Alle Siegel sind versiegelt.",
