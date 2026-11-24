@@ -100,7 +100,7 @@ und 10 vergeben keine Ziffer.
 |---|-----|--------|--------|
 | 1 | Postmeilensäule | Farbiges Nonogramm | Bild der **Sternenbohne** malen (10×10, Gold/Braun) |
 | 2 | Markt | Kreuzworträtsel (Märchen, 15 Begriffe) | **KÖNIGDROSSELBART · RUMPELSTILZCHEN · HANSIMGLÜCK · HÄNSELUNDGRETEL · ASCHENPUTTEL · SCHNEEWITTCHEN · FROSCHKÖNIG · FRAUHOLLE · ROTKÄPPCHEN · GÄNSEMAGD · GOLDENEGANS · DORNRÖSCHEN · STERNTALER · RAPUNZEL · ZWERGNASE** |
-| 3 | Rathaus | Drei Siegelringe | **Löwe / Stern / Braun** |
+| 3 | Rathaus | Brief mit versteckten Wörtern | **EINS · ZWEI · DREI** (aus „ein Stein“, „Zwei Eulen“, „Drei Igel“) |
 | 4 | Bibliothek | Cover-Puzzle | Zwölf Teile zum Bestiarium-Cover zusammensetzen; die Runen darauf mit dem Schlüssel übersetzen → **FRIDO** |
 | 5 | Appellplatz | Zeiger-Timing | **3 Treffer** im grünen Feld |
 | 6 | Schloss | Kaffeemaschine | **mittel / 80 °C / 3 / Sternenstaub** |

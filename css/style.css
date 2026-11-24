@@ -4439,3 +4439,64 @@ button.clue.done:hover {
   }
 }
 
+
+/* ------------------------------------------------------------
+   Kapitel 3: Karls Brief
+   ------------------------------------------------------------ */
+.letter-box {
+  margin: 16px 0;
+  padding: 18px 20px;
+  background: rgba(246, 236, 210, 0.7);
+  border: 1px solid rgba(139, 90, 43, 0.35);
+  border-radius: 12px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  font-family: "Patrick Hand", cursive;
+  font-size: 1.05rem;
+  line-height: 1.5;
+  color: #3a2a18;
+}
+
+.letter-box p {
+  margin: 0 0 8px;
+}
+
+.letter-box p:last-child {
+  margin-bottom: 0;
+}
+
+.letter-inputs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 16px 0 8px;
+}
+
+.letter-input-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.85rem;
+  color: #6b5338;
+}
+
+.letter-input {
+  padding: 8px 10px;
+  border: 1px solid rgba(139, 90, 43, 0.4);
+  border-radius: 8px;
+  background: rgba(255, 252, 244, 0.9);
+  font-family: "Patrick Hand", cursive;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.letter-input:focus {
+  outline: 2px solid rgba(201, 162, 39, 0.7);
+  outline-offset: 1px;
+}
+
+@media (max-width: 560px) {
+  .letter-inputs {
+    grid-template-columns: 1fr;
+  }
+}

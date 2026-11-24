@@ -666,7 +666,7 @@ function renderPuzzle(loc) {
     case "nonogram": renderNonogramPuzzle(loc); break;
     case "crossword": renderCrosswordPuzzle(loc); break;
     case "sacks": renderSacksPuzzle(loc); break;
-    case "seal": renderSealPuzzle(loc); break;
+    case "letter": renderLetterPuzzle(loc); break;
     case "jigsaw": renderJigsawPuzzle(loc); break;
     case "timing": renderTimingPuzzle(loc); break;
     case "dials": renderDialsPuzzle(loc); break;
@@ -1464,80 +1464,65 @@ function renderCrosswordPuzzle(loc) {
   renderLives();
 }
 
-/* --- Kapitel 3: Siegelringe --- */
-function renderSealPuzzle(loc) {
+/* --- Kapitel 3: Karls Brief --- */
+function renderLetterPuzzle(loc) {
   const puzzle = loc.puzzle;
-  const indices = puzzle.rings.map(() => 0);
 
   $("#puzzle-area").innerHTML = `
     <div class="puzzle-card">
       <h3>${esc(puzzle.title)}</h3>
       <p class="puzzle-prompt">${esc(puzzle.prompt)}</p>
 
-      <div class="seal-dials">
-        ${puzzle.rings
+      <div class="letter-box">
+        ${puzzle.letter.map((line) => `<p>${esc(line)}</p>`).join("")}
+      </div>
+
+      <div class="letter-inputs">
+        ${puzzle.answers
           .map(
-            (ring, index) => `
-              <div class="seal-dial" data-ring="${index}">
-                <span class="seal-dial-label">${esc(ring.label)}</span>
-                <div class="seal-dial-window">
-                  <button class="dial-arrow" type="button" data-dir="-1"
-                          aria-label="${esc(ring.label)} zurück">‹</button>
-                  <strong class="dial-value">${esc(ring.options[0])}</strong>
-                  <button class="dial-arrow" type="button" data-dir="1"
-                          aria-label="${esc(ring.label)} weiter">›</button>
-                </div>
-                <span class="seal-dial-dots">${ring.options
-                  .map((_, dot) => `<i class="${dot === 0 ? "on" : ""}"></i>`)
-                  .join("")}</span>
-              </div>`
+            (_, index) => `
+              <label class="letter-input-wrap">
+                <span class="letter-input-label">Verstecktes Wort ${index + 1}</span>
+                <input class="letter-input" type="text" data-index="${index}"
+                       autocomplete="off" spellcheck="false" />
+              </label>`
           )
           .join("")}
       </div>
 
       <p class="puzzle-note">${esc(puzzle.note)}</p>
+
       <div class="puzzle-actions">
-        ${puzzleActions("seal-check", "Siegel prüfen")}
+        ${puzzleActions("letter-check", "Brief prüfen")}
       </div>
     </div>`;
 
-  document.querySelectorAll(".seal-dial").forEach((dial) => {
-    const ringIndex = Number(dial.dataset.ring);
-    const ring = puzzle.rings[ringIndex];
-
-    dial.querySelectorAll("[data-dir]").forEach((button) => {
-      button.addEventListener("click", () => {
-        const dir = Number(button.dataset.dir);
-        indices[ringIndex] =
-          (indices[ringIndex] + dir + ring.options.length) % ring.options.length;
-        const value = dial.querySelector(".dial-value");
-        value.textContent = ring.options[indices[ringIndex]];
-        if (value.animate) {
-          value.animate(
-            [
-              { opacity: 0.2, transform: "translateY(-4px)" },
-              { opacity: 1, transform: "translateY(0)" }
-            ],
-            { duration: 180, easing: "ease" }
-          );
-        }
-        dial.querySelectorAll(".seal-dial-dots i").forEach((dot, dotIndex) => {
-          dot.classList.toggle("on", dotIndex === indices[ringIndex]);
-        });
-      });
+  const inputs = [...document.querySelectorAll(".letter-input")];
+  inputs.forEach((input) => {
+    input.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        $("#letter-check").click();
+      }
     });
   });
 
-  $("#seal-check").addEventListener("click", () => {
-    const correct = puzzle.rings.every(
-      (ring, index) => ring.options[indices[index]] === puzzle.answers[index]
+  $("#letter-check").addEventListener("click", () => {
+    const given = inputs.map((input) => crosswordNormalize(input.value));
+    const correct = puzzle.answers.every(
+      (answer, index) => given[index] === crosswordNormalize(answer)
     );
     if (correct) {
       solveChapter(loc);
     } else {
-      showFeedback("Die Ringe rasten nicht ein. Der Reim beschreibt jedes Zeichen ganz genau.", "err");
+      showFeedback(
+        "Die Wörter passen nicht. Lies den Brief noch einmal ohne Leerzeichen.",
+        "err"
+      );
     }
   });
+
+  if (inputs[0]) inputs[0].focus();
 }
 
 /* --- Kapitel 4: Bestiarium-Puzzle --- */

@@ -363,37 +363,31 @@ const GAME = {
         img: "assets/img/townhall.jpg"
       },
       teaser:
-        "Im Rathaus schläft der Stadtschreiber auf einem Stapel alter Kaffeezunft-Akten.",
+        "Ein Brief des Stadtschreibers verrät, wo die drei Siegel liegen.",
       story: [
         "Im Rathaus riecht es nach Staub, Tinte und kaltem Kaffee. Der Stadtschreiber liegt mit dem Gesicht auf einem Vertrag und schnarcht im Takt der Standuhr.",
-        "In der Schublade steckt die alte Zunftakte. Doch das Siegel fehlt. „Ohne Siegel kein Geheimnis“, murmelt er im Schlaf.",
-        "Auf dem Aktendeckel sind drei leere Siegelringe eingeritzt. Darunter steht ein Reim."
+        "In der Schublade steckt die alte Zunftakte – und ein Brief. „Ohne die drei Zahlen kein Siegel“, murmelt er im Schlaf.",
+        "Auf dem Brief stehen wirre Sätze. Wenn man die Leerzeichen entfernt, verstecken sich darin drei Wörter."
       ],
       puzzle: {
-        type: "seal",
-        title: "Die drei Siegelringe",
+        type: "letter",
+        title: "Karls Brief",
         prompt:
-          "Drehe die drei Ringe auf die Zeichen, die der Reim beschreibt.",
-        rings: [
-          {
-            label: "Wappentier",
-            options: ["Löwe", "Kanne", "Schlüssel", "Blatt"]
-          },
-          {
-            label: "In der Mitte",
-            options: ["Kanne", "Stern", "Schlüssel", "Blatt"]
-          },
-          {
-            label: "Grundfarbe",
-            options: ["Gold", "Rot", "Braun", "Blau"]
-          }
+          "Der Stadtschreiber hat einen Brief hinterlassen. Wenn man die Leerzeichen entfernt, verstecken sich darin drei Wörter. Finde sie und trage sie ein.",
+        letter: [
+          "Lieber Karl,",
+          "ein Stein liegt im Hof. Zwei Eulen sitzen auf dem Dach. Drei Igel schlafen im Archiv.",
+          "Der erste Siegelstempel liegt links, der zweite in der Mitte, der dritte rechts.",
+          "Vergiss nicht den Kaffee.",
+          "Dein Stadtschreiber"
         ],
-        answers: ["Löwe", "Stern", "Braun"],
+        answers: ["EINS", "ZWEI", "DREI"],
         note:
-          "Der Reim: „Das Wappentier trägt eine Mähne. Es hält keinen Schlüssel, sondern einen Stern. Und der Grund ist so dunkel wie der Kaffee des Königs.“",
-        hint: "Das Wappentier ist der Löwe, in der Mitte steht ein Stern, der Grund ist braun.",
+          "Karls Notiz: „Lies die Wörter ohne Leerzeichen – aus ‚ein Stein‘ wird ‚eins‘. Die drei Zahlen zeigen, wo die Siegel liegen.“",
+        hint:
+          "Entferne die Leerzeichen: ‚ein Stein‘ ergibt ‚eins‘, ‚Zwei Eulen‘ ergibt ‚zwei‘, ‚Drei Igel‘ ergibt ‚drei‘.",
         success:
-          "Die drei Ringe rasten ein. Das Zunftsiegel glüht golden auf – und die Akte klappt auf."
+          "Die drei Zahlen stimmen. Die Akte klappt auf, und das Zunftsiegel glüht golden."
       },
       reward: {
         item: "siegel",
