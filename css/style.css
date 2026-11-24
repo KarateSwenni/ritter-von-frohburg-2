@@ -1691,6 +1691,250 @@ button.clue.done:hover {
 }
 
 /* ------------------------------------------------------------
+   Kapitel 2: Kreuzworträtsel
+   ------------------------------------------------------------ */
+.crossword-wrap {
+  margin: 16px 0 4px;
+  padding: 2px;
+  overflow-x: auto;
+}
+
+.crossword {
+  container-type: inline-size;
+  display: grid;
+  grid-template-columns: repeat(var(--cw-cols), minmax(17px, 1fr));
+  gap: 2px;
+  width: 100%;
+  max-width: 470px;
+  margin: 0 auto;
+}
+
+.cw-cell {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1;
+  padding: 0;
+  border: 1px solid #d3b992;
+  border-radius: 3px;
+  background: #fffaf0;
+  color: var(--coffee-dark);
+  font-family: "Cinzel", serif;
+  font-size: 11px;
+  font-size: clamp(9px, 4cqw, 16px);
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.12s ease, box-shadow 0.12s ease, color 0.12s ease;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.cw-cell.cw-void {
+  border: 0;
+  background: none;
+  pointer-events: none;
+}
+
+.cw-num {
+  position: absolute;
+  top: 0;
+  left: 2px;
+  color: #7d6444;
+  font-family: "Patrick Hand", cursive;
+  font-size: 8px;
+  font-size: clamp(6px, 2.6cqw, 9px);
+  font-weight: 700;
+  line-height: 1.2;
+  pointer-events: none;
+}
+
+.cw-letter {
+  transform: translateY(6%);
+  pointer-events: none;
+}
+
+.cw-cell.active {
+  background: #fdf2d6;
+}
+
+.cw-cell.filled.active {
+  background: #fbeec9;
+}
+
+.cw-cell.cursor {
+  background: #f8e3ac;
+  box-shadow: inset 0 0 0 2px var(--gold-dark);
+  z-index: 1;
+}
+
+.cw-cell.done {
+  border-color: #b7c9ae;
+  background: #e8f0e2;
+  color: #3f5d45;
+}
+
+.cw-active {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin: 12px 0 0;
+  padding: 8px 11px;
+  border-left: 3px solid var(--gold);
+  border-radius: 0 10px 10px 0;
+  background: rgba(201, 162, 39, 0.1);
+  color: var(--ink-soft);
+  font-size: 0.96rem;
+  line-height: 1.35;
+}
+
+.cw-active-num {
+  flex: none;
+  color: var(--gold-dark);
+  font-family: "Cinzel", serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.cw-active-count {
+  flex: none;
+  margin-left: auto;
+  color: var(--ink-muted);
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.cw-keys {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+  max-width: 360px;
+  margin: 10px auto 0;
+}
+
+.cw-key {
+  min-height: 36px;
+  padding: 0;
+  border: 1px solid #b99a6d;
+  border-radius: 8px;
+  background: linear-gradient(180deg, #fffaf0, #efe0c4);
+  color: var(--coffee-dark);
+  font-family: "Cinzel", serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 0 rgba(176, 138, 92, 0.55);
+  transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.12s ease;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.cw-key:hover {
+  background: linear-gradient(180deg, #fffdf6, #f4e8d2);
+}
+
+.cw-key:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 0 rgba(176, 138, 92, 0.55);
+}
+
+.cw-key:focus-visible {
+  outline: 2px solid var(--gold-dark);
+  outline-offset: 1px;
+}
+
+.cw-key-wide {
+  grid-column: span 2;
+}
+
+.cw-clues {
+  margin-top: 16px;
+}
+
+.cw-clue-head {
+  margin: 14px 0 6px;
+  color: var(--gold-dark);
+  font-family: "Cinzel", serif;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.cw-clue-list {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cw-clue {
+  display: flex;
+  gap: 9px;
+  width: 100%;
+  padding: 7px 9px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: none;
+  color: var(--ink-soft);
+  font-family: "Patrick Hand", cursive;
+  font-size: 1rem;
+  line-height: 1.3;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.12s ease, border-color 0.12s ease, color 0.12s ease;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.cw-clue:hover {
+  background: rgba(201, 162, 39, 0.09);
+}
+
+.cw-clue:focus-visible {
+  outline: 2px solid var(--gold-dark);
+  outline-offset: 1px;
+}
+
+.cw-clue.active {
+  border-color: rgba(201, 162, 39, 0.5);
+  background: rgba(201, 162, 39, 0.13);
+  color: var(--coffee-dark);
+}
+
+.cw-clue.done .cw-clue-text {
+  text-decoration: line-through;
+  opacity: 0.62;
+}
+
+.cw-clue-num {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 21px;
+  height: 21px;
+  margin-top: 1px;
+  border: 1px solid #a5822a;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #fbe9a8, #e5c150);
+  color: #3a2412;
+  font-family: "Cinzel", serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.cw-clue.done .cw-clue-num {
+  border-color: #b7c9ae;
+  background: #e8f0e2;
+  color: #3f5d45;
+}
+
+/* ------------------------------------------------------------
    Kapitel 2: Sackwaage
    ------------------------------------------------------------ */
 .scale-wrap {
@@ -3940,6 +4184,34 @@ button.clue.done:hover {
     height: 12px;
   }
 
+  .cw-keys {
+    gap: 4px;
+    max-width: 320px;
+  }
+
+  .cw-key {
+    min-height: 34px;
+    font-size: 0.88rem;
+  }
+
+  .cw-active {
+    gap: 6px;
+    padding: 7px 9px;
+    font-size: 0.9rem;
+  }
+
+  .cw-clue {
+    gap: 7px;
+    padding: 6px 8px;
+    font-size: 0.95rem;
+  }
+
+  .cw-clue-num {
+    width: 19px;
+    height: 19px;
+    font-size: 0.66rem;
+  }
+
   .dpad {
     grid-template-columns: repeat(3, 40px);
     grid-template-rows: repeat(3, 40px);
@@ -4146,6 +4418,11 @@ button.clue.done:hover {
   }
 
   .nonogram-wrap {
+    margin-left: -10px;
+    margin-right: -10px;
+  }
+
+  .crossword-wrap {
     margin-left: -10px;
     margin-right: -10px;
   }

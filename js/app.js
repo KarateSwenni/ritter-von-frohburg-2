@@ -117,6 +117,7 @@ let activeTiming = null;
 let activeMelody = null;
 let activeMaze = null;
 let activeNonogram = null;
+let activeCrossword = null;
 let activeBattle = null;
 let audioCtx = null;
 let brewSet = new Set();
@@ -663,6 +664,7 @@ function renderPuzzle(loc) {
 
   switch (puzzle.type) {
     case "nonogram": renderNonogramPuzzle(loc); break;
+    case "crossword": renderCrosswordPuzzle(loc); break;
     case "sacks": renderSacksPuzzle(loc); break;
     case "seal": renderSealPuzzle(loc); break;
     case "jigsaw": renderJigsawPuzzle(loc); break;
@@ -681,6 +683,18 @@ function renderPuzzle(loc) {
 function puzzleActions(checkId, label = "Prüfen") {
   return `
     <button class="btn btn-primary" type="button" id="${checkId}">${label}</button>`;
+}
+
+/* Gemeinsame Anzeige für begrenzte Prüfungen */
+function livesMarkup(left, max) {
+  const dots = Array.from(
+    { length: max },
+    (_, index) => `<span class="life-dot${index >= left ? " used" : ""}"></span>`
+  ).join("");
+  return `
+    <span class="nonogram-lives-label">Prüfungen</span>
+    <span class="nonogram-lives-dots" aria-hidden="true">${dots}</span>
+    <span class="nonogram-lives-count">${left} von ${max}</span>`;
 }
 
 /* --- Kapitel 1: Farbiges Nonogramm --- */
@@ -917,14 +931,7 @@ function renderNonogramPuzzle(loc) {
   const checkButton = $("#nonogram-check");
 
   const renderLives = () => {
-    const dots = Array.from({ length: MAX_CHECKS }, (_, index) => {
-      const used = index >= checksLeft;
-      return `<span class="life-dot${used ? " used" : ""}"></span>`;
-    }).join("");
-    livesEl.innerHTML = `
-      <span class="nonogram-lives-label">Prüfungen</span>
-      <span class="nonogram-lives-dots" aria-hidden="true">${dots}</span>
-      <span class="nonogram-lives-count">${checksLeft} von ${MAX_CHECKS}</span>`;
+    livesEl.innerHTML = livesMarkup(checksLeft, MAX_CHECKS);
     livesEl.setAttribute("aria-label", `Noch ${checksLeft} von ${MAX_CHECKS} Prüfungen`);
   };
 
@@ -1104,6 +1111,358 @@ function renderSacksPuzzle(loc) {
     );
   });
   update();
+}
+
+/* --- Kapitel 2: Kreuzworträtsel --- */
+const CROSSWORD_KEYS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+
+function crosswordNormalize(text) {
+  return text
+    .toUpperCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^A-Z]/g, "");
+}
+
+function buildCrossword(puzzle) {
+  const words = puzzle.words
+    .map((entry) => {
+      const letters = crosswordNormalize(entry.answer).split("");
+      const cells = letters.map((_, index) =>
+        entry.dir === "across"
+          ? [entry.row, entry.col + index]
+          : [entry.row + index, entry.col]
+      );
+      return { ...entry, letters, cells };
+    })
+    .sort((a, b) => a.row - b.row || a.col - b.col)
+    .map((word, index) => ({ ...word, number: index + 1 }));
+
+  const grid = Array.from({ length: puzzle.rows }, () =>
+    Array.from({ length: puzzle.cols }, () => null)
+  );
+
+  words.forEach((word, wordIndex) => {
+    word.cells.forEach(([row, col]) => {
+      if (!grid[row][col]) {
+        grid[row][col] = { row, col, words: [], number: null };
+      }
+      grid[row][col].words.push(wordIndex);
+    });
+    grid[word.row][word.col].number = word.number;
+  });
+
+  return { words, grid };
+}
+
+function renderCrosswordPuzzle(loc) {
+  const puzzle = loc.puzzle;
+  const MAX_CHECKS = 5;
+  const { words, grid } = buildCrossword(puzzle);
+  const letters = grid.map((row) => row.map(() => ""));
+  const doneWords = new Set();
+  let activeWord = Math.max(0, words.findIndex((word) => word.dir === "across"));
+  let cursor = 0;
+  let checksLeft = MAX_CHECKS;
+
+  const wordFilled = (word) => word.cells.every(([row, col]) => letters[row][col]);
+  const wordCorrect = (word) =>
+    word.cells.every(([row, col], index) => letters[row][col] === word.letters[index]);
+
+  const cellMarkup = grid
+    .map((row, rowIndex) =>
+      row
+        .map((cell, colIndex) => {
+          if (!cell) return '<span class="cw-cell cw-void" aria-hidden="true"></span>';
+          const number = cell.number ? `<span class="cw-num">${cell.number}</span>` : "";
+          return `<button class="cw-cell" type="button" data-row="${rowIndex}" data-col="${colIndex}">
+              ${number}<span class="cw-letter"></span>
+            </button>`;
+        })
+        .join("")
+    )
+    .join("");
+
+  const clueGroup = (dir, title) => {
+    const items = words
+      .map((word, index) => ({ word, index }))
+      .filter(({ word }) => word.dir === dir)
+      .map(
+        ({ word, index }) => `
+          <li>
+            <button class="cw-clue" type="button" data-word="${index}">
+              <span class="cw-clue-num">${word.number}</span>
+              <span class="cw-clue-text">${esc(word.clue)}</span>
+            </button>
+          </li>`
+      )
+      .join("");
+    if (!items) return "";
+    return `<h4 class="cw-clue-head">${title}</h4><ul class="cw-clue-list">${items}</ul>`;
+  };
+
+  $("#puzzle-area").innerHTML = `
+    <div class="puzzle-card">
+      <h3>${esc(puzzle.title)}</h3>
+      <p class="puzzle-prompt">${esc(puzzle.prompt)}</p>
+
+      <div class="crossword-wrap">
+        <div class="crossword" id="crossword" style="--cw-cols: ${grid[0].length}">
+          ${cellMarkup}
+        </div>
+      </div>
+
+      <p class="cw-active" id="cw-active"></p>
+
+      <div class="cw-keys" id="cw-keys" role="group" aria-label="Buchstaben zum Eintragen">
+        ${CROSSWORD_KEYS.map(
+          (key) => `<button class="cw-key" type="button" data-key="${key}">${key}</button>`
+        ).join("")}
+        <button class="cw-key cw-key-wide" type="button" data-key="back"
+                aria-label="Letzten Buchstaben löschen">⌫</button>
+      </div>
+
+      <div class="cw-clues">
+        ${clueGroup("across", "Waagerecht")}
+        ${clueGroup("down", "Senkrecht")}
+      </div>
+
+      <p class="puzzle-note">${esc(puzzle.note)}</p>
+
+      <div class="nonogram-lives" id="cw-lives" role="status"></div>
+
+      <div class="puzzle-actions">
+        ${puzzleActions("cw-check", "Rätsel prüfen")}
+        <button class="btn btn-ghost btn-small" type="button" id="cw-reset">Leeren</button>
+      </div>
+    </div>`;
+
+  const board = $("#crossword");
+  const activeEl = $("#cw-active");
+  const cellEls = new Map();
+  board.querySelectorAll(".cw-cell[data-row]").forEach((el) => {
+    cellEls.set(`${el.dataset.row},${el.dataset.col}`, {
+      el,
+      letter: el.querySelector(".cw-letter")
+    });
+  });
+
+  const renderGrid = () => {
+    const activeCells = new Set(words[activeWord].cells.map(([row, col]) => `${row},${col}`));
+    const [cursorRow, cursorCol] = words[activeWord].cells[cursor];
+    const cursorKey = `${cursorRow},${cursorCol}`;
+
+    cellEls.forEach(({ el, letter }, key) => {
+      const [row, col] = key.split(",").map(Number);
+      const value = letters[row][col];
+      letter.textContent = value;
+      el.classList.toggle("filled", Boolean(value));
+      el.classList.toggle("active", activeCells.has(key));
+      el.classList.toggle("cursor", key === cursorKey);
+      el.classList.toggle(
+        "done",
+        grid[row][col].words.every((index) => doneWords.has(index))
+      );
+    });
+  };
+
+  const renderActive = () => {
+    const word = words[activeWord];
+    const filled = word.cells.filter(([row, col]) => letters[row][col]).length;
+    activeEl.innerHTML = `
+      <span class="cw-active-num">${word.number} ${word.dir === "across" ? "waagerecht" : "senkrecht"}</span>
+      <span class="cw-active-text">${esc(word.clue)}</span>
+      <span class="cw-active-count">${filled}/${word.letters.length}</span>`;
+  };
+
+  const renderClues = () => {
+    document.querySelectorAll(".cw-clue").forEach((el) => {
+      const index = Number(el.dataset.word);
+      el.classList.toggle("active", index === activeWord);
+      el.classList.toggle("done", doneWords.has(index));
+    });
+  };
+
+  const renderLives = () => {
+    const el = $("#cw-lives");
+    el.innerHTML = livesMarkup(checksLeft, MAX_CHECKS);
+    el.setAttribute("aria-label", `Noch ${checksLeft} von ${MAX_CHECKS} Prüfungen`);
+  };
+
+  const renderAll = () => {
+    renderGrid();
+    renderActive();
+    renderClues();
+  };
+
+  const selectWord = (index, cell = null) => {
+    activeWord = index;
+    if (cell) {
+      const found = words[index].cells.findIndex(
+        ([row, col]) => row === cell[0] && col === cell[1]
+      );
+      cursor = found >= 0 ? found : 0;
+    } else {
+      cursor = 0;
+    }
+    renderAll();
+  };
+
+  const teardown = () => {
+    document.removeEventListener("keydown", onKeyDown);
+    activeCrossword = null;
+  };
+
+  const finish = () => {
+    teardown();
+    solveChapter(loc);
+  };
+
+  const writeLetter = (letter) => {
+    const [row, col] = words[activeWord].cells[cursor];
+    letters[row][col] = letter;
+    doneWords.clear();
+    if (cursor < words[activeWord].cells.length - 1) cursor += 1;
+    renderAll();
+    if (words.every(wordCorrect)) finish();
+  };
+
+  const eraseLetter = () => {
+    const current = words[activeWord].cells[cursor];
+    if (letters[current[0]][current[1]]) {
+      letters[current[0]][current[1]] = "";
+    } else if (cursor > 0) {
+      cursor -= 1;
+      const previous = words[activeWord].cells[cursor];
+      letters[previous[0]][previous[1]] = "";
+    }
+    doneWords.clear();
+    renderAll();
+  };
+
+  const onKeyDown = (event) => {
+    if (event.ctrlKey || event.metaKey || event.altKey) return;
+    const target = event.target;
+    if (target && target.closest && target.closest("input, textarea, select, [contenteditable='true']")) {
+      return;
+    }
+    if (event.key === "Backspace") {
+      event.preventDefault();
+      eraseLetter();
+      return;
+    }
+    if (event.key === "ArrowRight" || event.key === "ArrowDown") {
+      event.preventDefault();
+      cursor = Math.min(cursor + 1, words[activeWord].cells.length - 1);
+      renderAll();
+      return;
+    }
+    if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
+      event.preventDefault();
+      cursor = Math.max(cursor - 1, 0);
+      renderAll();
+      return;
+    }
+    if (event.key.length === 1) {
+      const letter = crosswordNormalize(event.key).slice(0, 1);
+      if (!letter) return;
+      event.preventDefault();
+      writeLetter(letter);
+    }
+  };
+
+  document.addEventListener("keydown", onKeyDown);
+
+  board.addEventListener("click", (event) => {
+    const cell = event.target.closest(".cw-cell[data-row]");
+    if (!cell) return;
+    const row = Number(cell.dataset.row);
+    const col = Number(cell.dataset.col);
+    const owners = grid[row][col].words;
+    let next = owners[0];
+    if (owners.length > 1 && owners.includes(activeWord)) {
+      next = owners.find((index) => index !== activeWord);
+    }
+    selectWord(next, [row, col]);
+  });
+
+  document.querySelectorAll(".cw-clue").forEach((el) => {
+    el.addEventListener("click", () => {
+      selectWord(Number(el.dataset.word));
+      activeEl.scrollIntoView({ block: "nearest", behavior: "smooth" });
+    });
+  });
+
+  $("#cw-keys").addEventListener("click", (event) => {
+    const key = event.target.closest(".cw-key");
+    if (!key) return;
+    if (key.dataset.key === "back") eraseLetter();
+    else writeLetter(key.dataset.key);
+  });
+
+  $("#cw-check").addEventListener("click", () => {
+    if (!letters.some((row) => row.some(Boolean))) {
+      showFeedback("Das Rätsel ist noch leer. Tippe ein Feld an und trage ein Märchen ein.", "err");
+      return;
+    }
+
+    const wrong = [];
+    const incomplete = [];
+    words.forEach((word, index) => {
+      if (!wordFilled(word)) incomplete.push(index);
+      else if (!wordCorrect(word)) wrong.push(index);
+    });
+
+    if (!wrong.length && !incomplete.length) {
+      finish();
+      return;
+    }
+
+    doneWords.clear();
+    words.forEach((word, index) => {
+      if (wordFilled(word) && wordCorrect(word)) doneWords.add(index);
+    });
+    const correctCount = doneWords.size;
+    checksLeft -= 1;
+
+    if (checksLeft <= 0) {
+      wrong.forEach((index) => {
+        words[index].cells.forEach(([row, col]) => {
+          const keep = grid[row][col].words.some((other) => doneWords.has(other));
+          if (!keep) letters[row][col] = "";
+        });
+      });
+      checksLeft = MAX_CHECKS;
+      renderAll();
+      renderLives();
+      tone(147, 0.3, 0, "triangle");
+      showFeedback(
+        `${correctCount} von ${words.length} Wörtern stimmten. Damit sind alle ${MAX_CHECKS} Prüfungen verbraucht – die falschen Wörter sind geleert, die richtigen bleiben stehen. Du hast ${MAX_CHECKS} neue Prüfungen.`,
+        "err"
+      );
+      return;
+    }
+
+    renderAll();
+    renderLives();
+    tone(196, 0.22, 0, "triangle");
+    showFeedback(
+      `${correctCount} von ${words.length} Wörtern stimmen. Noch ${checksLeft} ${checksLeft === 1 ? "Prüfung" : "Prüfungen"} übrig.`,
+      "err"
+    );
+  });
+
+  $("#cw-reset").addEventListener("click", () => {
+    letters.forEach((row) => row.fill(""));
+    doneWords.clear();
+    cursor = 0;
+    renderAll();
+    showFeedback("Alles wieder leer. Du kannst von vorn tippen.", "hint");
+  });
+
+  activeCrossword = { teardown };
+  renderAll();
+  renderLives();
 }
 
 /* --- Kapitel 3: Siegelringe --- */
@@ -3082,6 +3441,11 @@ function stopActivePuzzles() {
     window.removeEventListener("pointerup", activeNonogram.stopPaint);
     window.removeEventListener("pointercancel", activeNonogram.stopPaint);
     activeNonogram = null;
+  }
+
+  if (activeCrossword) {
+    activeCrossword.teardown();
+    activeCrossword = null;
   }
 }
 

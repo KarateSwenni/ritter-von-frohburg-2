@@ -197,7 +197,7 @@ const GAME = {
     {
       id: "markt",
       name: "Markt",
-      short: "Die schiefe Waage",
+      short: "Karls Rätselzettel",
       x: 520,
       y: 330,
       icon: "market",
@@ -210,25 +210,76 @@ const GAME = {
         img: "assets/img/roaster.jpg"
       },
       teaser:
-        "Karls Kaffeebude ist verrammelt. Die Waage steht schief und schnarcht im Wind.",
+        "Karls Kaffeebude ist verrammelt. Auf der Theke klebt ein halb ausgefülltes Kreuzworträtsel.",
       story: [
         "Der Marktplatz ist wie leergefegt. Nur Karls Kaffeebude steht noch da – verrammelt, mit einem Schild: „Wegen Schlaf geschlossen.“",
-        "Dahinter liegt Karl auf einem Sack Sternenbohnen und schnarcht. Der Dieb von damals sitzt daneben und hält eine schiefe Waage fest. „Ich wollte doch nur den Kaffee aufwecken“, murmelt er im Schlaf.",
-        "Auf der Theke klebt ein Zettel: „Drei Säcke, genau ein Pfund. Dann springt die Luke auf.“"
+        "Dahinter liegt Karl auf einem Sack Sternenbohnen und schnarcht. Neben ihm sitzt der Dieb von damals und kritzelt mit letzter Kraft auf einen Zettel. „Ich wollte doch nur den Kaffee aufwecken“, murmelt er im Schlaf.",
+        "Auf der Theke klebt der Zettel: ein Kreuzworträtsel, halb ausgefüllt, mit sieben verqueren Beschreibungen. Darunter steht in Karls Handschrift: „Wer das löst, darf an die Luke.“"
       ],
       puzzle: {
-        type: "sacks",
-        title: "Drei Säcke, ein Pfund",
+        type: "crossword",
+        title: "Karls Kreuzworträtsel",
         prompt:
-          "Wähle drei Säcke, die zusammen genau 1000 Gramm wiegen. Die Waage zeigt dir die Summe.",
-        sacks: [620, 480, 350, 300, 220, 180],
-        target: 1000,
+          "Lies die verqueren Beschreibungen und trage das passende Märchen ein. Jede Antwort kreuzt mindestens eine andere.",
+        rows: 12,
+        cols: 14,
+        words: [
+          {
+            dir: "down",
+            row: 0,
+            col: 9,
+            answer: "STERNTALER",
+            clue: "Kind verschenkt alles bis aufs Hemd und wird dafür mit Edelmetall vom Himmel beworfen."
+          },
+          {
+            dir: "across",
+            row: 1,
+            col: 0,
+            answer: "SCHNEEWITTCHEN",
+            clue: "Kindergärtnerin überlebt drei Mordanschläge und heiratet einen reichen Junggesellen."
+          },
+          {
+            dir: "across",
+            row: 3,
+            col: 0,
+            answer: "RAPUNZEL",
+            clue: "Auffällige Haartracht ermöglicht ein Liebesabenteuer mit Turm-Aussicht."
+          },
+          {
+            dir: "down",
+            row: 3,
+            col: 1,
+            answer: "ALADIN",
+            clue: "Mutiger Jüngling bekämpft böse Zauberei mit einem Beleuchtungskörper und bekommt dafür die Prinzessin."
+          },
+          {
+            dir: "down",
+            row: 3,
+            col: 5,
+            answer: "ZWERGNASE",
+            clue: "Mangelnde Kräuterkunde führt zu einer deutlichen optischen Veränderung."
+          },
+          {
+            dir: "across",
+            row: 5,
+            col: 1,
+            answer: "ASCHENPUTTEL",
+            clue: "Fachkraft für Hülsenfrüchte und Kinderschuhgrößen macht am Hof überraschend Karriere."
+          },
+          {
+            dir: "across",
+            row: 11,
+            col: 0,
+            answer: "DROSSELBART",
+            clue: "Spöttischer Königssohn mit Vogelnamen erteilt einer hochnäsigen Prinzessin eine Lektion in Demut."
+          }
+        ],
         note:
-          "Karls Notiz: „Ein Pfund, sonst springt die Luke nicht auf. Der schwerste Sack ist zu schwer, der leichteste zu leicht.“",
+          "Karls Notiz: „Märchen kann ich im Halbschlaf nur noch verquer erzählen. Aber die Wörter passen zusammen – eins kreuzt das andere. Prüfen kostet eine Prüfung: Du hast fünf.“",
         hint:
-          "480 + 300 + 220 = 1000. Der 620er und der 350er bleiben draußen.",
+          "Die längste waagerechte Antwort ist das Mädchen, das bei sieben Zwergen wohnt.",
         success:
-          "Die Waage steht waagerecht. Klick! Die Luke springt auf und Karls alte Kaffeemühle purzelt heraus."
+          "Die letzte Lücke schließt sich. Klick! Die Luke springt auf, und Karls alte Kaffeemühle purzelt heraus."
       },
       reward: {
         item: "muehle",
@@ -236,7 +287,7 @@ const GAME = {
         text:
           "Karls Handmühle. Sie dreht sich schnurrend – und mahlt die Bohnen so fein wie Sternenstaub.",
         digitText:
-          "Im feuchten Kaffeesatz der Waage steht eine kleine, deutliche 1."
+          "Auf der Rückseite des Rätselzettels steht eine kleine, deutliche 1."
       }
     },
 

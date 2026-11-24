@@ -10,7 +10,8 @@ Koordinatenausgabe.
 
 **Rätselprinzip:** Alle Rätsel sind direkt im Browser lösbar. Kapitel 1 ist ein farbiges
 Nonogramm und kommt ganz ohne Wissen über die Orte vor Ort aus; am Ende zeigt das Bild die
-Sternenbohne. Kapitel 10 ist ein rundenbasierter Kampf im Stil klassischer Final-Fantasy-Spiele:
+Sternenbohne. Kapitel 2 ist ein Kreuzworträtsel mit verqueren Märchen-Beschreibungen. Kapitel 10
+ist ein rundenbasierter Kampf im Stil klassischer Final-Fantasy-Spiele:
 Angriff, Zauber, Trank und Flucht stehen zur Wahl, bis die Ratten im Wirtshauskeller besiegt sind.
 
 **Technik:** reines HTML, CSS und JavaScript. Kein Build, kein Server, keine Abhängigkeiten
@@ -98,7 +99,7 @@ und 10 vergeben keine Ziffer.
 | # | Ort | Rätsel | Lösung |
 |---|-----|--------|--------|
 | 1 | Postmeilensäule | Farbiges Nonogramm | Bild der **Sternenbohne** malen (10×10, Gold/Braun) |
-| 2 | Markt | Drei Säcke, ein Pfund | **480 g + 300 g + 220 g = 1000 g** |
+| 2 | Markt | Kreuzworträtsel (Märchen) | **STERNTALER · SCHNEEWITTCHEN · RAPUNZEL · ALADIN · ZWERGNASE · ASCHENPUTTEL · DROSSELBART** |
 | 3 | Rathaus | Drei Siegelringe | **Löwe / Stern / Braun** |
 | 4 | Bibliothek | Cover-Puzzle | Zwölf Teile zum Bestiarium-Cover zusammensetzen; die Runen darauf mit dem Schlüssel übersetzen → **FRIDO** |
 | 5 | Appellplatz | Zeiger-Timing | **3 Treffer** im grünen Feld |
