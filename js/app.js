@@ -712,7 +712,7 @@ function renderNonogramPuzzle(loc) {
   });
 
   const painted = Array.from({ length: rows }, () => Array(cols).fill(""));
-  const MAX_CHECKS = 3;
+  const MAX_CHECKS = 5;
   let selected = puzzle.colors[0].key;
   let painting = false;
   let checksLeft = MAX_CHECKS;
@@ -1001,7 +1001,7 @@ function renderNonogramPuzzle(loc) {
       renderLives();
       tone(147, 0.3, 0, "triangle");
       showFeedback(
-        `${summary}. Damit sind alle drei Prüfungen verbraucht – das Pergament ist wieder leer. Du hast drei neue Prüfungen.`,
+        `${summary}. Damit sind alle ${MAX_CHECKS} Prüfungen verbraucht – das Pergament ist wieder leer. Du hast ${MAX_CHECKS} neue Prüfungen.`,
         "err"
       );
       return;

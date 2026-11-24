@@ -4148,5 +4148,16 @@ button.clue.done:hover {
     margin-left: -10px;
     margin-right: -10px;
   }
+
+  .puzzle-actions {
+    gap: 8px;
+  }
+
+  .puzzle-actions .btn {
+    flex: 1 1 100%;
+    padding-left: 12px;
+    padding-right: 12px;
+    white-space: nowrap;
+  }
 }
 

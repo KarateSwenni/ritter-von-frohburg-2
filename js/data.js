@@ -179,7 +179,7 @@ const GAME = {
           "G........G"
         ],
         note:
-          "Die Zahlen sagen, wie viele zusammenhängende Felder einer Farbe in der Reihe liegen. Gleichfarbige Blöcke brauchen mindestens ein leeres Feld dazwischen – verschiedene Farben dürfen direkt aneinanderstoßen. Mit „Frei (×)“ kannst du dir Felder markieren, die leer bleiben. Prüfen kostet eine Prüfung: Du hast drei. Sind sie verbraucht, wird das Pergament geleert und du beginnst von vorn.",
+          "Die Zahlen sagen, wie viele zusammenhängende Felder einer Farbe in der Reihe liegen. Gleichfarbige Blöcke brauchen mindestens ein leeres Feld dazwischen – verschiedene Farben dürfen direkt aneinanderstoßen. Mit „Frei (×)“ kannst du dir Felder markieren, die leer bleiben. Prüfen kostet eine Prüfung: Du hast fünf. Sind sie verbraucht, wird das Pergament geleert und du beginnst von vorn.",
         hint:
           "Der Umriss ist ein Stern: oben eine Spitze, breite Arme und zwei Beine. In der Mitte sitzt ein brauner Kern.",
         success:
