@@ -1467,6 +1467,30 @@ function renderCrosswordPuzzle(loc) {
 /* --- Kapitel 3: Karls Brief --- */
 function renderLetterPuzzle(loc) {
   const puzzle = loc.puzzle;
+  const usePassword = Boolean(puzzle.password);
+
+  const inputsMarkup = usePassword
+    ? `
+        <div class="letter-inputs letter-inputs--single">
+          <label class="letter-input-wrap">
+            <span class="letter-input-label">Passwort</span>
+            <input class="letter-input" type="text" data-index="0"
+                   autocomplete="off" spellcheck="false" />
+          </label>
+        </div>`
+    : `
+        <div class="letter-inputs">
+          ${puzzle.answers
+            .map(
+              (_, index) => `
+                <label class="letter-input-wrap">
+                  <span class="letter-input-label">Verstecktes Wort ${index + 1}</span>
+                  <input class="letter-input" type="text" data-index="${index}"
+                         autocomplete="off" spellcheck="false" />
+                </label>`
+            )
+            .join("")}
+        </div>`;
 
   $("#puzzle-area").innerHTML = `
     <div class="puzzle-card">
@@ -1477,18 +1501,7 @@ function renderLetterPuzzle(loc) {
         ${puzzle.letter.map((line) => `<p>${esc(line)}</p>`).join("")}
       </div>
 
-      <div class="letter-inputs">
-        ${puzzle.answers
-          .map(
-            (_, index) => `
-              <label class="letter-input-wrap">
-                <span class="letter-input-label">Verstecktes Wort ${index + 1}</span>
-                <input class="letter-input" type="text" data-index="${index}"
-                       autocomplete="off" spellcheck="false" />
-              </label>`
-          )
-          .join("")}
-      </div>
+      ${inputsMarkup}
 
       <p class="puzzle-note">${esc(puzzle.note)}</p>
 
@@ -1509,14 +1522,21 @@ function renderLetterPuzzle(loc) {
 
   $("#letter-check").addEventListener("click", () => {
     const given = inputs.map((input) => crosswordNormalize(input.value));
-    const correct = puzzle.answers.every(
-      (answer, index) => given[index] === crosswordNormalize(answer)
-    );
+    let correct = false;
+    if (usePassword) {
+      correct = given[0] === crosswordNormalize(puzzle.password);
+    } else {
+      correct = puzzle.answers.every(
+        (answer, index) => given[index] === crosswordNormalize(answer)
+      );
+    }
     if (correct) {
       solveChapter(loc);
     } else {
       showFeedback(
-        "Die Wörter passen nicht. Lies den Brief noch einmal ohne Leerzeichen.",
+        usePassword
+          ? "Das Passwort stimmt nicht. Lies die Anfangsbuchstaben der Zeilen."
+          : "Die Wörter passen nicht. Lies den Brief noch einmal ohne Leerzeichen.",
         "err"
       );
     }
@@ -1524,7 +1544,6 @@ function renderLetterPuzzle(loc) {
 
   if (inputs[0]) inputs[0].focus();
 }
-
 /* --- Kapitel 4: Bestiarium-Puzzle --- */
 function renderJigsawPuzzle(loc) {
   const puzzle = loc.puzzle;

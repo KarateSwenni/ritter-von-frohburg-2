@@ -367,27 +367,28 @@ const GAME = {
       story: [
         "Im Rathaus riecht es nach Staub, Tinte und kaltem Kaffee. Der Stadtschreiber liegt mit dem Gesicht auf einem Vertrag und schnarcht im Takt der Standuhr.",
         "In der Schublade steckt die alte Zunftakte – und ein Brief. „Ohne die drei Zahlen kein Siegel“, murmelt er im Schlaf.",
-        "Auf dem Brief stehen wirre Sätze. Wenn man die Leerzeichen entfernt, verstecken sich darin drei Wörter."
+        "Auf dem Brief stehen sechs Zeilen. Die Anfangsbuchstaben ergeben ein Passwort."
       ],
       puzzle: {
         type: "letter",
         title: "Karls Brief",
         prompt:
-          "Der Stadtschreiber hat einen Brief hinterlassen. Wenn man die Leerzeichen entfernt, verstecken sich darin drei Wörter. Finde sie und trage sie ein.",
+          "Lies die Anfangsbuchstaben der Zeilen – sie ergeben das Passwort zur Akte.",
         letter: [
-          "Lieber Karl,",
-          "ein Stein liegt im Hof. Zwei Eulen sitzen auf dem Dach. Drei Igel schlafen im Archiv.",
-          "Der erste Siegelstempel liegt links, der zweite in der Mitte, der dritte rechts.",
-          "Vergiss nicht den Kaffee.",
-          "Dein Stadtschreiber"
+          "Kaffeebohnen lagern im Archiv.",
+          "Alle Siegel sind versiegelt.",
+          "Folge den Anfangsbuchstaben.",
+          "Führe das Passwort ein.",
+          "Eile, bevor der Kaffee kalt wird.",
+          "Es grüßt der Stadtschreiber."
         ],
-        answers: ["EINS", "ZWEI", "DREI"],
+        password: "KAFFEE",
         note:
-          "Karls Notiz: „Lies die Wörter ohne Leerzeichen – aus ‚ein Stein‘ wird ‚eins‘. Die drei Zahlen zeigen, wo die Siegel liegen.“",
+          "Karls Notiz: „Lies die Anfangsbuchstaben der Zeilen von oben nach unten – sie ergeben das Passwort.“",
         hint:
-          "Entferne die Leerzeichen: ‚ein Stein‘ ergibt ‚eins‘, ‚Zwei Eulen‘ ergibt ‚zwei‘, ‚Drei Igel‘ ergibt ‚drei‘.",
+          "Der erste Buchstabe jeder Zeile ergibt zusammen ein bekanntes Getränk.",
         success:
-          "Die drei Zahlen stimmen. Die Akte klappt auf, und das Zunftsiegel glüht golden."
+          "Das Passwort stimmt. Die Akte klappt auf, und das Zunftsiegel glüht golden."
       },
       reward: {
         item: "siegel",
